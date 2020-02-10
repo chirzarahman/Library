@@ -17,19 +17,19 @@
                             <label for="cover" class="col-md-4 col-form-label text-md-right">Cover</label>
 
                             <div class="col-md-6">
-                                <img id="cover" src="{{ $book->cover }}" alt="Cover" class="thumbnail mb-2" width="150" height="100" />
+                                <img id="cover" src="{{ asset($book->cover) }}" alt="Cover" class="thumbnail mb-2" width="150" height="100" />
                                 <input id="cover" type="file" onchange="document.getElementById('cover').src = window.URL.createObjectURL(this.files[0])" name="cover">
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label for="image" class="col-md-4 col-form-label text-md-right">Image</label>
 
                             <div class="col-md-6">
-                                <img id="image" src="{{ $book->image }}" alt="No Image" class="thumbnail mb-2" width="150" height="100" />
+                                <img id="image" src="{{ asset($book->image) }}" alt="No Image" class="thumbnail mb-2" width="150" height="100" />
                                 <input id="image" type="file" onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])" name="image">
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group row">
                             <label for="judul" class="col-md-4 col-form-label text-md-right">Judul</label>
@@ -78,6 +78,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
+                                <a href="{{ url('/Book') }}" class="btn btn-secondary">Back</a>
                                 <input type="submit" class="btn btn-success" value="Save">
                             </div>
                         </div>

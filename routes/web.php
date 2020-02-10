@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::view('/', 'auth.login');
 Route::get('/home', 'HomeController@index');
+Route::get('/Profile', 'HomeController@profile');
 
 Route::get('/Book', 'BookController@index');
 Route::get('/Add Book', 'BookController@create');

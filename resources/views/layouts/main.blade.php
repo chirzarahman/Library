@@ -12,7 +12,7 @@
   <title>@yield('title')</title>
 
   <!-- Custom fonts for this template-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
@@ -31,7 +31,7 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fa fa-book"></i>
+          <i class="fas fa-book"></i>
         </div>
         <div class="sidebar-brand-text mx-3"><sup>my</sup>Library</div>
       </a>
@@ -40,9 +40,9 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="{{ url('/home') }}">
-          <i class="fa fa-fw fa-tachometer"></i>
+          <i class="fa fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
@@ -58,15 +58,15 @@
       <!-- Nav Item - add book -->
       <li class="nav-item">
         <a class="nav-link" href="{{ url('/Add Book') }}">
-          <i class="fa fa-fw fa-book-medis"></i>
-          <span>Tambah Book</span>
+          <i class="fas fa-fw fa-book-medical"></i>
+          <span>Add Book</span>
         </a>
       </li>
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="{{ url('/Book') }}">
-          <i class="fa fa-fw fa-book-reader"></i>
+          <i class="fa fa-fw fa-book-open"></i>
           <span>My Book</span></a>
       </li>
 
@@ -123,18 +123,18 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->email }}</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
                 <img class="img-profile rounded-circle" src="{{ Auth::user()->avatar }}">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{ url('/Profile') }}">
                   <i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fa fa-sign-out fa-sm fa-fw mr-2 text-gray-400"></i>
+                  <i class="fa fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>
               </div>

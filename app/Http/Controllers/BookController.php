@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\File;
 class BookController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -17,6 +27,9 @@ class BookController extends Controller
     {
         $books = Book::all();
         return view ('book', compact('books'));
+        // return response()->json([
+        //     'book' => $books,
+        // ], 200);
     }
 
     /**
@@ -48,26 +61,25 @@ class BookController extends Controller
             'image' => 'required|sometimes|image|mimes:jpg,jpeg,svg,png|max:90000',
         ]);
         
-            $cover = $request->file('cover');   
-            $image = $request->file('image');
-            $nameCover = time().'.'.$cover->getClientOriginalExtension();
-            $nameImage = time().'.'.$image->getClientOriginalExtension();
-            $path = public_path('/img/book/');
-            $cover->move($path, $nameCover);
-            $image->move($path, $nameImage);
-            Book::create([
-                'judul' => $request->judul,
-                'pengarang' => $request->pengarang,
-                'penerbit' => $request->penerbit,
-                'synopsis' => $request->synopsis,
-                'tanggal_rilis' => $request->tanggal_rilis,
-                'halaman' => $request->halaman, 
-                'cover' => $nameCover,
-                'image' => $nameImage,
-            ]);
+        $cover = $request->file('cover');   
+        // $image = $request->file('image');
+        $nameCover = uniqid().'.'.$cover->getClientOriginalExtension();
+        // $nameImage = uniqid().'.'.$image->getClientOriginalExtension();
+        $path = public_path('/img/book/');
+        $cover->move($path, $nameCover);
+        // $image->move($path, $nameImage);
+        Book::create([
+            'judul' => $request->judul,
+            'pengarang' => $request->pengarang,
+            'penerbit' => $request->penerbit,
+            'synopsis' => $request->synopsis,
+            'tanggal_rilis' => $request->tanggal_rilis,
+            'halaman' => $request->halaman, 
+            'cover' => '/img/book/'.$nameCover,
+            // 'image' => $nameImage,
+        ]);
             
         $books = Book::all();
-
         return view ('book', ['books' => $books]);
     }
 
@@ -108,13 +120,24 @@ class BookController extends Controller
         $book->synopsis = $request->synopsis;
         $book->tanggal_rilis = $request->tanggal_rilis;
         $book->halaman = $request->halaman;
-            
-        File::delete(public_path($book->cover));
-        $cover = $request->file('cover');
-        $name = time().'.'.$cover->getClientOriginalExtension();
-        $path = public_path('/img/book/');
-        $cover->move($path, $name);
-        $book->cover = '/img/book/'.$name;
+        
+        if ($request->file('cover')) {
+            File::delete(public_path($book->cover));
+            $cover = $request->file('cover');
+            $nameCover = uniqid().'.'.$cover->getClientOriginalExtension();
+            $path = public_path('/img/book/');
+            $cover->move($path, $nameCover);
+            $book->cover = '/img/book/'.$nameCover;
+        }
+        
+        // if ($request->file('image')) {
+        //     File::delete(public_path($book->image));
+        //     $image = $request->file('image');
+        //     $nameImage = uniqid().'.'.$image->getClientOriginalExtension();
+        //     $path = public_path('/img/book/');
+        //     $image->move($path, $nameImage);
+        //     $book->image = '/img/book/'.$nameImage;
+        // }
         
         $book->update();
         return redirect ('/Book');
@@ -128,8 +151,8 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        Book::destroy($book->id);
         File::delete(public_path($book->cover));
+        Book::destroy($book->id);
         return redirect ('/Book');
     }
 }

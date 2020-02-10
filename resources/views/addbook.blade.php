@@ -23,14 +23,14 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label for="image" class="col-md-4 col-form-label text-md-right">Image</label>
 
                             <div class="col-md-6">
                                 <img id="image" alt="No Image" class="thumbnail" width="100" height="100" />
                                 <input id="image" type="file" onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])" name="image" required>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group row">
                             <label for="judul" class="col-md-4 col-form-label text-md-right">Judul</label>
